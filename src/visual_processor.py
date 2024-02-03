@@ -48,6 +48,17 @@ class ImageProcessor():
         """
         self.__file = cv.cvtColor(self.__file, cv.COLOR_BGR2GRAY)
 
+
+    def edge_cascade(self, blur_kernel=(1,1), edge_th1=100, edge_th2=100):
+        """
+        Generates an image with the detected edges in it. For now, only the Canny algorithm is used.
+        For better edge detection, a blur kernel can be set so a gaussian blur is applied before detection.
+        Later also other algorithms will be available
+        """
+        if blur_kernel[0] > 1 and blur_kernel[1] > 1:
+            self.__file = cv.GaussianBlur(self.__file, blur_kernel, cv.BORDER_DEFAULT)
+        self.__file = cv.Canny(self.__file, edge_th1, edge_th2)
+
     
     def reset(self):
         """
